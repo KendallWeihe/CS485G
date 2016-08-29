@@ -35,3 +35,5 @@ READ DATA:
 	- two options
 		- fscanf into entire character string?
 		- fgets until NULL
+
+octal dump: od -t d4 -t x4 testData

@@ -1,10 +1,10 @@
 # Makefile for Project 1 of CS485, Spring 2015.
 # This project is to manipulate binary data in C.
 
-PROJECT = workingProgram
-GOAL = workingProgram
-CFLAGS = -Wall
-DATAFILE = file.data
+PROJECT = prog1
+GOAL = prog1
+CFLAGS = -g -Wall
+DATAFILE = testData
 INPUT = inputFile
 OUTPUT = outputFile
 

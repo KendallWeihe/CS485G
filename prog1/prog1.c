@@ -17,12 +17,15 @@
       - read first 4B that specifies the number of 4B chunks
       - initialize array of unsigned ints of size ^^
       - loop through file and read in 4B chunks
-    - 
+    -
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define INPUT_SIZE 64 * sizeof(char)
+#define TOKEN_SIZE 8 * sizeof(char)
 
 /*
   function: print_instructions
@@ -146,7 +149,7 @@ int main(int argc, char* argv[]){
   fread(&size, 4, 1, fp); //determine the size of the file -- defined in first 4Byte's
   // printf("Data size = %u\n", size);
 
-  unsigned int data[size]; //initialize data array of size `size`
+  unsigned int *data = (unsigned int *)malloc(size * sizeof(unsigned int)); //initialize data array of size `size`
   int i;
   for (i=0; i < size; i += 1){ //input data chunks into data array
     fread(&data[i], 4, 1, fp);
@@ -158,24 +161,27 @@ int main(int argc, char* argv[]){
   //read user input
   print_instructions();
   //allocate memory for user input -- I allocated more than what will be needed
-  char *input = (char *)malloc(64 * sizeof(char));
-  char *command = (char *)malloc(8 * sizeof(char));
-  char *n = (char *)malloc(8 * sizeof(char));
-  char *m = (char *)malloc(8 * sizeof(char));
+  char *input = (char *)malloc(INPUT_SIZE);
+  char *command = (char *)malloc(TOKEN_SIZE);
+  char *n = (char *)malloc(TOKEN_SIZE);
+  char *m = (char *)malloc(TOKEN_SIZE);
 
   while (strcmp(command, "q") != 0){ //loop until user enters quit
     //clear variables
-    memset(input, 0, sizeof(input));
-    memset(command, 0, sizeof(command));
+    if (input != NULL)
+      memset(input, 0, INPUT_SIZE);
+    if (command != NULL)
+      memset(command, 0, TOKEN_SIZE);
     if (n != NULL)
-      memset(n, 0, sizeof(n));
+      memset(n, 0, TOKEN_SIZE);
     if (m != NULL)
-      memset(m, 0, sizeof(m));
+      memset(m, 0, TOKEN_SIZE);
 
     printf("Enter command: ");
     fgets(input, 64, stdin); //read from stdin
-    command = strtok(input, " \n"); //splice off command
-    if (strcmp(command, "q") == 0){ //user chose to quit
+    if (strcmp(input, "\n"))
+      command = strtok(input, " \n"); //splice off command
+    if (command != NULL && strcmp(command, "q") == 0){ //user chose to quit
       printf("You quit the program\n");
       return 0;
     }
