@@ -1,0 +1,499 @@
+Script started on Fri 02 Sep 2016 01:12:56 PM EDT
+]0;kmwe236@kmwe236: ~kmwe236@kmwe236:~$ mv lsb[K[Kab2.txt CS485/
+]0;kmwe236@kmwe236: ~kmwe236@kmwe236:~$ cd CS485/
+]0;kmwe236@kmwe236: ~/CS485kmwe236@kmwe236:~/CS485$ mkdir lab2
+]0;kmwe236@kmwe236: ~/CS485kmwe236@kmwe236:~/CS485$ mv lab2.txt lab2
+]0;kmwe236@kmwe236: ~/CS485kmwe236@kmwe236:~/CS485$ cd lab2
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ ls
+lab2.txt
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ wget http://www.cs.uky.edu/~raphael/courses/CS485/lab2/match.c
+--2016-09-02 13:13:25--  http://www.cs.uky.edu/~raphael/courses/CS485/lab2/match.c
+Resolving www.cs.uky.edu (www.cs.uky.edu)... 128.163.146.21
+Connecting to www.cs.uky.edu (www.cs.uky.edu)|128.163.146.21|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3531 (3.4K) [text/x-csrc]
+Saving to: ‘match.c’
+
+ 0% [                                                                                                                                            ] 0           --.-K/s              100%[===========================================================================================================================================>] 3,531       --.-K/s   in 0s      
+
+2016-09-02 13:13:26 (189 MB/s) - ‘match.c’ saved [3531/3531]
+
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./match 
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./match...done.
+(gdb) q
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ echo "GRADER: I use atom text editor with a packacke[K[K[Kge that uses sftp to remote;y view [K[K[K[K[K[K[K[Kly view files"
+GRADER: I use atom text editor with a package that uses sftp to remotely view files
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./match 
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./match...done.
+(gdb) b 64
+Breakpoint 1 at 0x400843: file match.c, line 64.
+(gdb) r
+Starting program: /home/kmwe236/CS485/lab2/match 
+
+Breakpoint 1, firstTest (name1=0x7fffffffe430 "/etc/hosts", name2=0x7fffffffe4a0 "/etc/networks") at match.c:64
+64		retval = lseek(fd1, 10, SEEK_CUR);
+(gdb) n
+65		if (retval < 0) perror("lseek error");
+(gdb) p retval
+$1 = 10
+(gdb) n
+66		retval = read(fd1, buf1, 5);
+(gdb) n
+67		if (retval < 0) perror("read error");
+(gdb) p retval
+$2 = 5
+(gdb) p buf1
+$3 = "local", '\000' <repeats 94 times>
+(gdb) n
+70		retval = lseek(fd2, 72, SEEK_CUR);
+(gdb) n
+71		if (retval < 0) perror("lseek error");
+(gdb) p retval
+$4 = 72
+(gdb) n
+72		retval = read(fd2, buf2, 5);
+(gdb) n
+73		if (retval < 0) perror("read error");
+(gdb) p retval
+$5 = 5
+(gdb) p buf2
+$6 = "-loca", '\000' <repeats 94 times>
+(gdb) n
+75		retval = memcmp(buf1, buf2, 5);
+(gdb) p memcmp(buf1, buf2, 5)
+$7 = 63
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/kmwe236/CS485/lab2/match 
+
+Breakpoint 1, firstTest (name1=0x7fffffffe430 "/etc/hosts", name2=0x7fffffffe4a0 "/etc/networks") at match.c:64
+64		retval = lseek(fd1, 10, SEEK_CUR);
+(gdb) n
+65		if (retval < 0) perror("lseek error");
+(gdb) n
+66		retval = read(fd1, buf1, 5);
+(gdb) n
+67		if (retval < 0) perror("read error");
+(gdb) n
+70		retval = lseek(fd2, 72, SEEK_CUR);
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/kmwe236/CS485/lab2/match 
+
+Breakpoint 1, firstTest (name1=0x7fffffffe430 "/etc/hosts", name2=0x7fffffffe4a0 "/etc/networks") at match.c:64
+64	l = lseek(fd1, 10, SEEK_CUR);
+(gdb) n
+65	etval < 0) perror("lseek error");
+(gdb) n
+66	l = read(fd1, buf1, 5);
+(gdb) n
+67	etval < 0) perror("read error");
+(gdb) n
+70	l = lseek(fd2, 73, SEEK_CUR);
+(gdb) n
+71	etval < 0) perror("lseek error");
+(gdb) n
+72	l = read(fd2, buf2, 5);
+(gdb) n
+73	etval < 0) perror("read error");
+(gdb) p buf2
+$8 = "-loca", '\000' <repeats 94 times>
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 2777] will be killed.
+
+Quit anyway? (y or n) y
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./match echo "GRADER: I use atom text editor with a package that uses sftp to remotely view files"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgdb ./match [Kcc -Wall -g -o match match.cwget http://www.cs.uky.edu/~raphael/courses/CS485/lab2/match.c[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[33Pgcc -Wall -g -o match match.c
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./wa[K[Kmatch 
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./match...done.
+(gdb) b 70
+Breakpoint 1 at 0x400891: file match.c, line 70.
+(gdb) c
+The program is not being run.
+(gdb) r
+Starting program: /home/kmwe236/CS485/lab2/match 
+
+Breakpoint 1, firstTest (name1=0x7fffffffe430 "/etc/hosts", name2=0x7fffffffe4a0 "/etc/networks") at match.c:70
+70		retval = lseek(fd2, 73, SEEK_CUR);
+(gdb) p buf1
+$1 = "local", '\000' <repeats 94 times>
+(gdb) n
+71		if (retval < 0) perror("lseek error");
+(gdb) n
+72		retval = read(fd2, buf2, 5);
+(gdb) n
+73		if (retval < 0) perror("read error");
+(gdb) p buf2
+$2 = "local", '\000' <repeats 94 times>
+(gdb) n
+75		retval = memcmp(buf1, buf2, 5);
+(gdb) n
+76		if (retval != 0) {
+(gdb) p retval
+$3 = 0
+(gdb) n
+79			printf("You debugged the first one correctly!\n");
+(gdb) n
+You debugged the first one correctly!
+81	}
+(gdb) b 110
+Breakpoint 2 at 0x400a32: file match.c, line 110.
+(gdb) c
+Continuing.
+
+Breakpoint 2, secondTest (filename1=0x7fffffffe430 "/bin/ls", filename2=0x7fffffffe4a0 "/bin/cat") at match.c:110
+110		*value = *value & 0xffffffff;
+(gdb) p value
+$4 = (int *) 0x6020a0 <buf2>
+(gdb) b buf2
+Function "buf2" not defined.
+Make breakpoint pending on future shared library load? (y or [n]) n
+(gdb) p buf1
+$5 = "\000@\000\000l", '\000' <repeats 94 times>
+(gdb) p buf2
+$6 = "\000@\000@l", '\000' <repeats 94 times>
+(gdb) p *value
+$7 = 1073758208
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 2796] will be killed.
+
+Quit anyway? (y or n) y
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./match cc -Wall -g -o match match.c
+match.c: In function ‘secondTest’:
+match.c:110:2: error: ‘buf1_value’ undeclared (first use in this function)
+  buf1_value = (int *) buf1;
+  ^
+match.c:110:2: note: each undeclared identifier is reported only once for each function it appears in
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c[Kgcc -Wall -g -o match match.c
+match.c: In function ‘secondTest’:
+match.c:110:7: warning: unused variable ‘buf1_value’ [-Wunused-variable]
+  int *buf1_value = (int *) buf1;
+       ^
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c
+match.c: In function ‘secondTest’:
+match.c:110:7: warning: variable ‘buf1_value’ set but not used [-Wunused-but-set-variable]
+  int *buf1_value;
+       ^
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c[17Pdb ./match 
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./match...done.
+(gdb) b 110
+Breakpoint 1 at 0x400a32: file match.c, line 110.
+(gdb) r
+Starting program: /home/kmwe236/CS485/lab2/match 
+You debugged the first one correctly!
+
+Breakpoint 1, secondTest (filename1=0x7fffffffe430 "/bin/ls", filename2=0x7fffffffe4a0 "/bin/cat") at match.c:110
+110		*value = *value & 0xffffffff;
+(gdb) p *value
+$1 = 1073758208
+(gdb) p buf1
+$2 = "\000@\000\000l", '\000' <repeats 94 times>
+(gdb) p buf1*buf1
+$3 = 0 '\000'
+(gdb) p *buf1[1Pbuf1&buf1
+$4 = (char (*)[100]) 0x602120 <buf1>
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 2988] will be killed.
+
+Quit anyway? (y or n) ^[[A
+Please answer y or n.
+A debugging session is active.
+
+	Inferior 1 [process 2988] will be killed.
+
+Quit anyway? (y or n) y
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./match cc -Wall -g -o match match.c
+match.c: In function ‘secondTest’:
+match.c:110:7: warning: variable ‘buf_val’ set but not used [-Wunused-but-set-variable]
+  int *buf_val;
+       ^
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c[17Pdb ./match 
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./match...done.
+(gdb) b 110
+Breakpoint 1 at 0x400a32: file match.c, line 110.
+(gdb) r
+Starting program: /home/kmwe236/CS485/lab2/match 
+You debugged the first one correctly!
+
+Breakpoint 1, secondTest (filename1=0x7fffffffe430 "/bin/ls", filename2=0x7fffffffe4a0 "/bin/cat") at match.c:111
+111		buf_val = (int *) buf1;
+(gdb) n
+112		*value = *value & 0xffffffff;
+(gdb) p buf_val
+$1 = (int *) 0x602120 <buf1>
+(gdb) p buf_val*buf_val
+$2 = 16384
+(gdb) p *value
+$3 = 1073758208
+(gdb) p value
+$4 = (int *) 0x6020a0 <buf2>
+(gdb) p *value
+$5 = 1073758208
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 3045] will be killed.
+
+Quit anyway? (y or n) y
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gdb ./match cc -Wall -g -o match match.c
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ gcc -Wall -g -o match match.c[17Pdb ./match \[K
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.2) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./match...done.
+(gdb) b 10[K10
+Breakpoint 1 at 0x400a32: file match.c, line 110.
+(gdb) r
+Starting program: /home/kmwe236/CS485/lab2/match 
+You debugged the first one correctly!
+
+Breakpoint 1, secondTest (filename1=0x7fffffffe430 "/bin/ls", filename2=0x7fffffffe4a0 "/bin/cat") at match.c:112
+112		*value = *value & 0xffff;
+(gdb) n
+114		retval = memcmp(buf1, buf2, 4);
+(gdb) p value[K[K[K[K[Kbuf1
+$1 = "\000@\000\000l", '\000' <repeats 94 times>
+(gdb) p buf2
+$2 = "\000@\000\000l", '\000' <repeats 94 times>
+(gdb) n
+115		if (retval != 0) {
+(gdb) n
+118			printf("You debugged the second one correctly!\n");
+(gdb) n
+You debugged the second one correctly!
+120	} // secondTest()
+(gdb) c
+Continuing.
+[Inferior 1 (process 3134) exited normally]
+(gdb) q
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ ./match 
+You debugged the first one correctly!
+You debugged the second one correctly!
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ cat match.c 
+/* There are two bugs in this program.  In both cases the bug is
+ * an incorrect constant in the program.  Find the incorrect constant,
+ * fix it, and you will get the memcmp() call to be equal -- i.e., match!
+ *
+ * Your goal is to use gdb to debug the program.  You should record your
+ * debugging session using the script program, and then upload the
+ * resulting file to the csportal.
+ *
+ * YOU MUST PERFORM THIS EXERCISE ON YOUR VM.
+ *
+ * To record your session:
+ *   1. Use the script command (script MyDebugSession.txt).
+ *
+ * To record debug the program:
+ *   2. Compile the program so that it can be debugged
+ *      (gcc -Wall -g -o match match.c)
+ *   3. Run gdb on the program (gdb ./match).
+ *   4. Use gdb commands to run the program and find the bugs.
+ *   5. Edit the program to fix the bugs, recompile, and rerun the
+ *      program without gdb, which should print out a message indicating
+ *      that you have debugged both phases correctly.
+ *   6. Display your new version of the program (cat match.c).
+ *
+ * To stop recording your session:
+ *   7. Type exit.
+ *
+ * Now submit MyDebugSession.txt to https://www.cs.uky.edu/csportal.
+ * You can either start a browser on your VM, or you can copy the file to some
+ * other machine and use a browser there.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#define buflen 100
+char buf1[buflen];
+char buf2[buflen];
+
+/* --- sorry --- */
+void sorry(char *test) {
+	printf("Sorry!  You did not debug the %s correctly.\n", test);
+	exit(-1);
+} // sorry()
+
+/* --- firstTest --- */
+void firstTest(char *name1, char *name2) {
+	int fd1, fd2;
+	int retval;
+
+	if ((fd1 = open(name1, O_RDONLY)) < 0) {
+		perror(name1);
+		exit(-1);
+	}
+	if ((fd2 = open(name2, O_RDONLY)) < 0) {
+		perror(name2);
+		exit(-1);
+	}
+
+	retval = lseek(fd1, 10, SEEK_CUR);
+	if (retval < 0) perror("lseek error");
+	retval = read(fd1, buf1, 5);
+	if (retval < 0) perror("read error");
+
+	/* Hint -- the error is an incorrect constant in the next line */
+	retval = lseek(fd2, 73, SEEK_CUR);
+	if (retval < 0) perror("lseek error");
+	retval = read(fd2, buf2, 5);
+	if (retval < 0) perror("read error");
+
+	retval = memcmp(buf1, buf2, 5);
+	if (retval != 0) {
+		sorry("firstTest");
+	} else {
+		printf("You debugged the first one correctly!\n");
+	}
+}
+
+/* --- secondTest --- */
+void secondTest(char *filename1, char *filename2) {
+	int filedes1, filedes2;
+	int *value;
+	int retval;
+
+	if ((filedes1 = open(filename1, O_RDONLY)) < 0) {
+		perror(filename1);
+		exit(-1);
+	}
+	if ((filedes2 = open(filename2, O_RDONLY)) < 0) {
+		perror(filename2);
+		exit(-1);
+	}
+
+	retval = lseek(filedes1, 31, SEEK_CUR);
+	if (retval < 0) perror("lseek error");
+	retval = read(filedes1, buf1, 4);
+	if (retval < 0) perror("read error");
+
+	retval = lseek(filedes2, 79, SEEK_CUR);
+	if (retval < 0) perror("lseek error");
+	retval = read(filedes2, buf2, 4);
+	if (retval < 0) perror("read error");
+
+	value = (int *) buf2;
+	/* Hint -- the error is in the next line */
+	// int *buf_val;
+	// buf_val = (int *) buf1;
+	*value = *value & 0xffff;
+
+	retval = memcmp(buf1, buf2, 4);
+	if (retval != 0) {
+		sorry("secondTest");
+	} else {
+		printf("You debugged the second one correctly!\n");
+	}
+} // secondTest()
+
+/* --- main --- */
+int main() {
+	char file1[buflen];
+	char file2[buflen];
+
+	strcpy(file1, "/etc/hosts");
+	strcpy(file2, "/etc/networks");
+	firstTest(file1, file2);
+
+	strcpy(file1, "/bin/ls");
+	strcpy(file2, "/bin/cat");
+	secondTest(file1, file2);
+	return(0); // success
+} // main()
+]0;kmwe236@kmwe236: ~/CS485/lab2kmwe236@kmwe236:~/CS485/lab2$ exit
+Script done on Fri 02 Sep 2016 01:32:49 PM EDT

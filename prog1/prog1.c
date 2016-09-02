@@ -19,13 +19,12 @@
       - loop through file and read in 4B chunks
     -
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define INPUT_SIZE 64 * sizeof(char)
-#define TOKEN_SIZE 8 * sizeof(char)
+#define INPUT_SIZE 64
+#define TOKEN_SIZE 8
 
 /*
   function: print_instructions
@@ -86,19 +85,19 @@ void execute_command(char *command, char *n_char, char *m_char, unsigned int *da
   }
   else if (strcmp(command, "b0") == 0){ //print first byte from nth element
     unsigned int x = (data[n] >> (8*0)) & 0xff;
-    printf("data[%d] byte #0 = %d\n", n, x);
+    printf("data[%d] byte #0 = %x\n", n, x);
   }
   else if (strcmp(command, "b1") == 0){ //print second byte from nth element
     unsigned int x = (data[n] >> (8*1)) & 0xff;
-    printf("data[%d] byte #1 = %d\n", n, x);
+    printf("data[%d] byte #1 = %x\n", n, x);
   }
   else if (strcmp(command, "b2") == 0){ //print third byte from nth element
     unsigned int x = (data[n] >> (8*2)) & 0xff;
-    printf("data[%d] byte #2 = %d\n", n, x);
+    printf("data[%d] byte #2 = %x\n", n, x);
   }
   else if (strcmp(command, "b3") == 0){ //print 4th byte from nth element
     unsigned int x = (data[n] >> (8*3)) & 0xff;
-    printf("data[%d] byte #3 = %d\n", n, x);
+    printf("data[%d] byte #3 = %x\n", n, x);
   }
   else if (strcmp(command, "+") == 0){ //sum `n` and `m` then print
     unsigned int sum = data[n] + data[m];
@@ -106,23 +105,23 @@ void execute_command(char *command, char *n_char, char *m_char, unsigned int *da
   }
   else if (strcmp(command, "&") == 0){ //logical bitwise AND `n` and `m` then print
     unsigned int and = data[n] & data[m];
-    printf("data[%d] & data[%d] = %d\n", n, m, and);
+    printf("data[%d] & data[%d] = %x\n", n, m, and);
   }
   else if (strcmp(command, "|") == 0){ //logical bitwise OR `n` and `m` then print
     unsigned int or = data[n] | data[m];
-    printf("data[%d] | data[%d] = %d\n", n, m, or);
+    printf("data[%d] | data[%d] = %x\n", n, m, or);
   }
   else if (strcmp(command, "^") == 0){ //logical bitwise XOR `n` and `m` then print
     unsigned int xor = data[n] ^ data[m];
-    printf("data[%d] ^ data[%d] = %d\n", n, m, xor);
+    printf("data[%d] ^ data[%d] = %x\n", n, m, xor);
   }
   else if (strcmp(command, ">") == 0){ //shift `n` right by `m` bits then print
     unsigned int x = (data[n] >> m);
-    printf("data[%d] >> %d = %d\n", n, m, x);
+    printf("data[%d] >> %d = %x\n", n, m, x);
   }
   else if (strcmp(command, "<") == 0){ //shift `n` left by `m` bits then print
     unsigned int x = (data[n] << m);
-    printf("data[%d] << %d = %d\n", n, m, x);
+    printf("data[%d] << %d = %x\n", n, m, x);
   }
 
 }
