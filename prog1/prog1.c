@@ -75,7 +75,7 @@ void execute_command(char *command, char *n_char, char *m_char, unsigned int *da
 
   //long if/else list for each possible command
   if (strcmp(command, "pd") == 0){ //print nth element
-    printf("data[%d] (in decimal) = %d\n", n, data[n]);
+    printf("data[%d] (as an unsigned decimal) = %u\n", n, data[n]);
   }
   else if (strcmp(command, "px") == 0){ //print nth element in hex
     printf("data[%d] (in hexadecimal) = %08x\n", n, data[n]);
@@ -145,17 +145,41 @@ int main(int argc, char* argv[]){
   unsigned int size;
 
   fp = fopen(argv[1], "r"); //open the file
-  fread(&size, 4, 1, fp); //determine the size of the file -- defined in first 4Byte's
+  if (fp == NULL){
+    printf("File not found\n");
+    return -1;
+  }
+
+  int fread_return_bytes;
+  fread_return_bytes = fread(&size, 4, 1, fp); //determine the size of the file -- defined in first 4Byte's
+  if (fread_return_bytes < 1){
+    printf("The length of the file was not specified in the first 4 Bytes\n");
+    return -1;
+  }
   // printf("Data size = %u\n", size);
 
   unsigned int *data = (unsigned int *)malloc(size * sizeof(unsigned int)); //initialize data array of size `size`
+  if (data == NULL){
+    printf("There was an error in allocating memory\n");
+    return -1;
+  }
+
   int i;
   for (i=0; i < size; i += 1){ //input data chunks into data array
-    fread(&data[i], 4, 1, fp);
+    fread_return_bytes = fread(&data[i], 4, 1, fp);
+    if (fread_return_bytes <= 0){
+      printf("There was an error in reading the data, it appears no data was available to read\n");
+      return -1;
+    }
     printf("data[%d] = %d\n", i, data[i]);
   }
 
-  fclose(fp); //close the file
+  int fclose_return_value;
+  fclose_return_value = fclose(fp); //close the file
+  if (fclose_return_value != 0){
+    printf("There was an error in closing the file stream\n");
+    return -1;
+  }
 
   //read user input
   print_instructions();
@@ -165,20 +189,40 @@ int main(int argc, char* argv[]){
   char *n = (char *)malloc(TOKEN_SIZE);
   char *m = (char *)malloc(TOKEN_SIZE);
 
+  if (input == NULL || command == NULL || n == NULL || m == NULL){
+    printf("There was an error in allocating memory for your program\n");
+    return -1;
+  }
+
   while (strcmp(command, "q") != 0){ //loop until user enters quit
     //clear variables
-    if (input != NULL)
-      memset(input, 0, INPUT_SIZE);
-    if (command != NULL)
-      memset(command, 0, TOKEN_SIZE);
-    if (n != NULL)
-      memset(n, 0, TOKEN_SIZE);
-    if (m != NULL)
-      memset(m, 0, TOKEN_SIZE);
+    int *memset_return_value;
+    if (input != NULL){
+      memset_return_value = memset(input, 0, INPUT_SIZE);
+    }
+    if (command != NULL){
+      memset_return_value = memset(command, 0, TOKEN_SIZE);
+    }
+    if (n != NULL){
+      memset_return_value = memset(n, 0, TOKEN_SIZE);
+    }
+    if (m != NULL){
+      memset_return_value = memset(m, 0, TOKEN_SIZE);
+    }
+
+    if (memset_return_value == NULL){
+      printf("There was an error in clearing memory\n");
+      return -1;
+    }
+
 
     printf("Enter command: ");
-    fgets(input, 64, stdin); //read from stdin
-    if (strcmp(input, "\n"))
+    if (fgets(input, 64, stdin) == NULL){
+      printf("There was an error whle reading your input\n");
+      return -1;
+    }
+
+    if (strcmp(input, "\n")) //strcmp returns anything other than zero is not true -- if the user entered an empty command, do nothing
       command = strtok(input, " \n"); //splice off command
     if (command != NULL && strcmp(command, "q") == 0){ //user chose to quit
       printf("You quit the program\n");
