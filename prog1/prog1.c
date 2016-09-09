@@ -193,6 +193,12 @@ int main(int argc, char* argv[]){
     printf("This file is empty\n");
     return 1;
   }
+
+  if (ferror(fp)){
+    printf("There was an error in reading your file\n");
+    return 1;
+  }	
+
   // printf("Data size = %u\n", size); //uncomment if you want to verify file size
 
   unsigned int *data = (unsigned int *)malloc(size * sizeof(unsigned int)); //initialize data array of size `size`
