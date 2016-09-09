@@ -7,24 +7,32 @@
     - read user input -- a command that will use data from file
     - execute command
   Requirements:
-    - handle errors:
-      - wrong arguments
-      - file not found
-      - command not recognized
+    - handle errors
+    - execute correct command with correct results
+    - see print_instructions() for a list of commands
   Psuedocode:
-    - check for argument error
     - open and input file.data
       - read first 4B that specifies the number of 4B chunks
       - initialize array of unsigned ints of size ^^
       - loop through file and read in 4B chunks
-    -
+    - read user command
+    - splice command into tokens
+    - call function to execute command based on the first token
+      - check if command supported
+    - execute command
+    - loop from "read user command" until user enters "q"
+  Flow of control:
+    - main():
+      - calls print_instructions() to print a list of instructions
+      - reads user command
+      - calls execute_command to execute the command
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define INPUT_SIZE 64
-#define TOKEN_SIZE 8
+#define INPUT_SIZE 128
+#define TOKEN_SIZE 64
 
 /*
   function: print_instructions
@@ -53,7 +61,7 @@ void print_instructions(){
 
 /*
   function: execute_command
-  inputs: user input (command, n, m), and data array
+  inputs: user input (command, n, m), and data array -- from file specified in argument
   outputs: executed command printed to terminal
   purpose: determine which command the user has specified and execute
 */
@@ -63,6 +71,7 @@ void execute_command(char *command, char *n_char, char *m_char, unsigned int *da
 
   if (n_char == NULL){ //case where user entered `command` followed by neither `n` nor `m`
     printf("Command not recognized\n");
+    printf("You may have left out some parameters, please see the instructions printed at the beginning of the program\n");
     return;
   }
   else {
@@ -75,29 +84,57 @@ void execute_command(char *command, char *n_char, char *m_char, unsigned int *da
 
   //long if/else list for each possible command
   if (strcmp(command, "pd") == 0){ //print nth element
+    if (m != 0){
+      printf("You entered the wrong number of parameters, the pd command takes just one parameter\n");
+      printf("Here is the results of the first parameter\n");
+    }
     printf("data[%d] (as an unsigned decimal) = %u\n", n, data[n]);
   }
   else if (strcmp(command, "px") == 0){ //print nth element in hex
+    if (m != 0){
+      printf("You entered the wrong number of parameters, px takes just one parameter\n");
+      printf("Here's the results of the first paramter:\n");
+    }
     printf("data[%d] (in hexadecimal) = %08x\n", n, data[n]);
   }
   else if (strcmp(command, "po") == 0){ //print nth element in octal
+    if (m != 0){
+      printf("You entered the wrong number of parameters, po takes just one parameter\n");
+      printf("Here's the results of the first paramter:\n");
+    }
     printf("data[%d] (in octal) = %o\n", n, data[n]);
   }
   else if (strcmp(command, "b0") == 0){ //print first byte from nth element
+    if (m != 0){
+      printf("You entered the wrong number of parameters, b0 takes just one parameter\n");
+      printf("Here's the results of the first paramter:\n");
+    }
     unsigned int x = (data[n] >> (8*0)) & 0xff;
-    printf("data[%d] byte #0 = %x\n", n, x);
+    printf("data[%d] byte #0 = (HEX) %x\n", n, x);
   }
   else if (strcmp(command, "b1") == 0){ //print second byte from nth element
+    if (m != 0){
+      printf("You entered the wrong number of parameters, b1 takes just one parameter\n");
+      printf("Here's the results of the first paramter:\n");
+    }
     unsigned int x = (data[n] >> (8*1)) & 0xff;
-    printf("data[%d] byte #1 = %x\n", n, x);
+    printf("data[%d] byte #1 = (HEX) %x\n", n, x);
   }
   else if (strcmp(command, "b2") == 0){ //print third byte from nth element
+    if (m != 0){
+      printf("You entered the wrong number of parameters, b2 takes just one parameter\n");
+      printf("Here's the results of the first paramter:\n");
+    }
     unsigned int x = (data[n] >> (8*2)) & 0xff;
-    printf("data[%d] byte #2 = %x\n", n, x);
+    printf("data[%d] byte #2 = (HEX) %x\n", n, x);
   }
   else if (strcmp(command, "b3") == 0){ //print 4th byte from nth element
+    if (m != 0){
+      printf("You entered the wrong number of parameters, b3 takes just one parameter\n");
+      printf("Here's the results of the first paramter:\n");
+    }
     unsigned int x = (data[n] >> (8*3)) & 0xff;
-    printf("data[%d] byte #3 = %x\n", n, x);
+    printf("data[%d] byte #3 = (HEX) %x\n", n, x);
   }
   else if (strcmp(command, "+") == 0){ //sum `n` and `m` then print
     unsigned int sum = data[n] + data[m];
@@ -105,31 +142,33 @@ void execute_command(char *command, char *n_char, char *m_char, unsigned int *da
   }
   else if (strcmp(command, "&") == 0){ //logical bitwise AND `n` and `m` then print
     unsigned int and = data[n] & data[m];
-    printf("data[%d] & data[%d] = %x\n", n, m, and);
+    printf("data[%d] & data[%d] = (HEX) %x\n", n, m, and);
   }
   else if (strcmp(command, "|") == 0){ //logical bitwise OR `n` and `m` then print
     unsigned int or = data[n] | data[m];
-    printf("data[%d] | data[%d] = %x\n", n, m, or);
+    printf("data[%d] | data[%d] = (HEX) %x\n", n, m, or);
   }
   else if (strcmp(command, "^") == 0){ //logical bitwise XOR `n` and `m` then print
     unsigned int xor = data[n] ^ data[m];
-    printf("data[%d] ^ data[%d] = %x\n", n, m, xor);
+    printf("data[%d] ^ data[%d] = (HEX) %x\n", n, m, xor);
   }
   else if (strcmp(command, ">") == 0){ //shift `n` right by `m` bits then print
     unsigned int x = (data[n] >> m);
-    printf("data[%d] >> %d = %x\n", n, m, x);
+    printf("data[%d] >> %d = (HEX) %x\n", n, m, x);
   }
   else if (strcmp(command, "<") == 0){ //shift `n` left by `m` bits then print
     unsigned int x = (data[n] << m);
-    printf("data[%d] << %d = %x\n", n, m, x);
+    printf("data[%d] << %d = (HEX) %x\n", n, m, x);
   }
+  else
+    printf("This command is not supported, please see the list of commands printed at the beginning of the program\n");
 
 }
 
 /*
   function: main
   inputs: argument count and argument array
-  outputs: data chunks printed to terminal
+  outputs: data chunks printed to terminal -- so that the user can verify correctness
   purpose: see psuedocode at beginning of file
 */
 int main(int argc, char* argv[]){
@@ -147,42 +186,38 @@ int main(int argc, char* argv[]){
   fp = fopen(argv[1], "r"); //open the file
   if (fp == NULL){
     printf("File not found\n");
-    return -1;
+    return 1;
   }
 
-  int fread_return_bytes;
-  fread_return_bytes = fread(&size, 4, 1, fp); //determine the size of the file -- defined in first 4Byte's
-  if (fread_return_bytes < 1){
-    printf("The length of the file was not specified in the first 4 Bytes\n");
-    return -1;
+  if (fread(&size, 4, 1, fp) < 1){ //fread to determine the number of chunks in the input file
+    printf("This file is empty\n");
+    return 1;
   }
-  // printf("Data size = %u\n", size);
+  // printf("Data size = %u\n", size); //uncomment if you want to verify file size
 
   unsigned int *data = (unsigned int *)malloc(size * sizeof(unsigned int)); //initialize data array of size `size`
   if (data == NULL){
     printf("There was an error in allocating memory\n");
-    return -1;
+    return 1;
   }
 
   int i;
   for (i=0; i < size; i += 1){ //input data chunks into data array
-    fread_return_bytes = fread(&data[i], 4, 1, fp);
-    if (fread_return_bytes <= 0){
-      printf("There was an error in reading the data, it appears no data was available to read\n");
-      return -1;
+    fread(&data[i], 4, 1, fp);
+    if (ferror(fp)){
+      printf("There was an error in reading the data\n");
+      return 1;
     }
-    printf("data[%d] = %d\n", i, data[i]);
+    printf("data[%d] = %d\n", i, data[i]); //print the data chunks out so that the user can verify
   }
 
-  int fclose_return_value;
-  fclose_return_value = fclose(fp); //close the file
-  if (fclose_return_value != 0){
+  if (fclose(fp) != 0){ //close the file and check for errors
     printf("There was an error in closing the file stream\n");
-    return -1;
+    return 1;
   }
 
-  //read user input
-  print_instructions();
+  print_instructions(); //print instructions to the user
+
   //allocate memory for user input -- I allocated more than what will be needed
   char *input = (char *)malloc(INPUT_SIZE);
   char *command = (char *)malloc(TOKEN_SIZE);
@@ -191,7 +226,7 @@ int main(int argc, char* argv[]){
 
   if (input == NULL || command == NULL || n == NULL || m == NULL){
     printf("There was an error in allocating memory for your program\n");
-    return -1;
+    return 1;
   }
 
   while (strcmp(command, "q") != 0){ //loop until user enters quit
@@ -212,20 +247,19 @@ int main(int argc, char* argv[]){
 
     if (memset_return_value == NULL){
       printf("There was an error in clearing memory\n");
-      return -1;
+      return 1;
     }
-
 
     printf("Enter command: ");
     if (fgets(input, 64, stdin) == NULL){
       printf("There was an error whle reading your input\n");
-      return -1;
+      return 1;
     }
 
-    if (strcmp(input, "\n")) //strcmp returns anything other than zero is not true -- if the user entered an empty command, do nothing
+    if (strcmp(input, "\n")) //strcmp returns anything other than zero for not true -- if the user entered an empty command, do nothing
       command = strtok(input, " \n"); //splice off command
     if (command != NULL && strcmp(command, "q") == 0){ //user chose to quit
-      printf("You quit the program\n");
+      printf("You chose to quit the program\n");
       return 0;
     }
 
