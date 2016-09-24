@@ -1,0 +1,9 @@
+b *0x000000000040163c
+b *0x400ffa
+commands 1
+q
+end
+
+r answers.txt
+y
+
