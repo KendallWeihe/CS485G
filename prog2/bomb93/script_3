@@ -13,20 +13,20 @@ do
 
 	old_1=$(($old_1+1))	
 
-	if [ "$(($count%6))" -eq "0" ]
+	if [ "$(($count%7))" -eq "0" ]
 	then
 		old_1=0
 		old_2=$(($old_2+1))
 	fi
 
-	if [ "$(($count%36))" -eq "0" ]
+	if [ "$(($count%49))" -eq "0" ]
 	then
 		old_1=0
 		old_2=0
 		old_3=$(($old_3+1))
 	fi
 
-	if [ "$(($count%216))" -eq "0" ]
+	if [ "$(($count%343))" -eq "0" ]
 	then
 		old_1=0
 		old_2=0
@@ -34,7 +34,7 @@ do
 		old_4=$(($old_4+1))
 	fi
 
-        if [ "$(($count%1296))" -eq "0" ]
+        if [ "$(($count%2401))" -eq "0" ]
         then
 		old_1=0
 		old_2=0
@@ -43,7 +43,7 @@ do
 		old_5=$(($old_5+1))
         fi
 
-        if [ "$(($count%7776))" -eq "0" ]
+        if [ "$(($count%16807))" -eq "0" ]
         then
 		old_1=0
 		old_2=0
@@ -58,10 +58,10 @@ do
 
 	newline="$old_6 $old_5 $old_4 $old_3 $old_2 $old_1"
 	echo "$newline"
-	sed -i "6s/.*/$newline/" answers_2.txt	
+	sed -i "6s/.*/$newline/" answers_3.txt	
 	
 	
-	gdb --command=gdb_commands_2 bomb	
+	gdb --command=gdb_commands_3 bomb	
 
 done
 exit 0
