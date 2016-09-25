@@ -1,7 +1,7 @@
 #!/bin/bash
 
 old_1=0
-old_2=1
+old_2=0
 old_3=0
 old_4=0
 old_5=0
@@ -13,7 +13,7 @@ do
 
 	old_1=$(($old_1+1))	
 
-	if [ "$(($count%20))" -eq "0" ]
+	if [ "$(($count%200))" -eq "0" ]
 	then
 		old_1=0
 		old_2=$(($old_2+1))
@@ -21,23 +21,23 @@ do
 
 	if [ "$(($count%400))" -eq "0" ]
 	then
-		old_1=0
-		old_2=0
+#		old_1=0
+#		old_2=0
 		old_3=$(($old_3+1))
 	fi
 
 	if [ "$(($count%8000))" -eq "0" ]
 	then
-		old_1=0
-		old_2=0
+#		old_1=0
+#		old_2=0
 		old_3=0
 		old_4=$(($old_4+1))
 	fi
 
         if [ "$(($count%160000))" -eq "0" ]
         then
-		old_1=0
-		old_2=0
+#		old_1=0
+#		old_2=0
 		old_3=0
 		old_4=0
 		old_5=$(($old_5+1))
@@ -45,8 +45,8 @@ do
 
         if [ "$(($count%3200000))" -eq "0" ]
         then
-		old_1=0
-		old_2=0
+#		old_1=0
+#		old_2=0
 		old_3=0
 		old_4=0
 		old_5=0
@@ -56,12 +56,12 @@ do
 
 	count=$(($count+1))
 
-	newline="$old_6 $old_5 $old_4 $old_3 $old_2 $old_1"
+	newline="$old_2 $old_1"
 	echo "$newline"
-	sed -i "2s/.*/$newline/" answers_2.txt	
+	sed -i "4s/.*/$newline/" answers.txt	
 	
 	
-	gdb --command=gdb_commands_2 bomb	
+	gdb --command=gdb_commands bomb	
 
 done
 exit 0
