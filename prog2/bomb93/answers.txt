@@ -2,4 +2,5 @@ I am the mayor. I can do anything I want.
 0 1 1 2 3 5
 3 172
 40 2
-abcdef
+tjpkiz
+0 0 0 0 0 0
