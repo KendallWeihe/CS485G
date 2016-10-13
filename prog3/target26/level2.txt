@@ -1,0 +1,12 @@
+
+level2.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	48 c7 c7 25 68 75 54 	mov    $0x54756825,%rdi
+   7:	48 c7 04 25 00 88 63 	movq   $0x40198c,0x55638800
+   e:	55 8c 19 40 00 
+  13:	48 c7 c5 00 88 63 55 	mov    $0x55638800,%rbp
+  1a:	c3                   	retq   
