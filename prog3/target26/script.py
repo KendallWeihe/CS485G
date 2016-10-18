@@ -1,14 +1,15 @@
 import subprocess as sp
 import pdb
 
-for i in range(4201265,4201323):
+#for i in range(4201265,4201323):
+for i in range(4201265,4201266):
     d = hex(i)[2:]
     output = " "
     for i in range(len(d),0,-2):
         output = output + d[i-2:i] + " "
 
     fill_buffer = ""
-    for i in range(1000):
+    for i in range(56):
         fill_buffer = fill_buffer + "00 "
     out_buffer = fill_buffer + output + "00 00 00 00"
 
