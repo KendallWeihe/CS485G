@@ -1,0 +1,45 @@
+
+
+while (input != done){
+  read user input
+  parse inputs
+    - parse object
+  fork
+    if child
+      execve
+      exit
+    else
+      waitpid
+}
+
+
+%
+  - has to be the first
+  - everything after is a comment
+
+set variable value
+  - first token is set
+  - second token is the variable name
+  - third token is value
+
+defprompt
+  - first token is defprompt
+  - second token is string
+
+cd directoryname
+
+listprocs
+  - find all processes that have been placed in the background
+  - every time & is used we append it to a list
+
+done
+
+run
+  - first token is command/program
+  - rest are arguments
+  - check if last argument is &
+
+assigto variable value
+  - second token is variable name
+  - command
+    - capture output of command and store in variable
