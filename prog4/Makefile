@@ -1,7 +1,6 @@
 
-parse:
-	g++ -g *.cpp -o parse
+main:
+	g++ -g main.cpp -o main
 
-clean: 
-	rm parse
-
+clean:
+	rm main
